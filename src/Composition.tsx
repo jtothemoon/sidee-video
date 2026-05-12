@@ -1,5 +1,5 @@
 import { AbsoluteFill, Sequence } from "remotion";
-import { Scene1Diary } from "./scenes/Scene1Diary";
+import { Scene1KakaoHook } from "./scenes/Scene1KakaoHook";
 import { Scene2Survey } from "./scenes/Scene2Survey";
 import { Scene3Walls } from "./scenes/Scene3Walls";
 import { Scene4Insight } from "./scenes/Scene4Insight";
@@ -12,7 +12,7 @@ export const MyComposition: React.FC = () => {
   return (
     <AbsoluteFill>
       <Sequence durationInFrames={240}>
-        <Scene1Diary />
+        <Scene1KakaoHook />
       </Sequence>
       <Sequence from={240} durationInFrames={240}>
         <Scene2Survey />
