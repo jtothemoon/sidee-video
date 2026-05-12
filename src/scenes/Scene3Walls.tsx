@@ -135,25 +135,25 @@ export const Scene3Walls = () => {
       <div
         style={{
           position: "absolute",
-          bottom: 60,
+          bottom: 90,
           left: 100,
           right: 100,
           opacity: quoteIn,
-          transform: `translateY(${(1 - quoteIn) * 12}px)`,
+          transform: `translateY(${(1 - quoteIn) * 14}px)`,
         }}
       >
         <div
           style={{
-            fontSize: 26,
+            fontSize: 40,
             fontStyle: "italic",
             color: COLORS.NAVY_500,
-            lineHeight: 1.5,
+            lineHeight: 1.45,
             fontWeight: 500,
-            borderLeft: `4px solid ${COLORS.BLUE}`,
-            paddingLeft: 20,
+            borderLeft: `6px solid ${COLORS.BLUE}`,
+            paddingLeft: 28,
           }}
         >
-          "초기에는 빠르게 시작되지만, 시간이 갈수록 동기가 사라지고 탈출각을 잰다."
+          "초기에는 빠르게 시작되지만, 시간이 갈수록 동기가 사라지면 자연스럽게 멈추게 된다."
         </div>
       </div>
     </AbsoluteFill>

@@ -4,11 +4,13 @@ import { COLORS, FONT_BODY, clamp, useLocalTime } from "./_shared";
 export const Scene4Insight = () => {
   const t = useLocalTime();
 
-  const l1In = clamp((t - 0.8) / 0.7, 0, 1);
-  const l2In = clamp((t - 2.6) / 0.7, 0, 1);
-  const l3In = clamp((t - 4.5) / 0.7, 0, 1);
-  const strikeT = clamp((t - 3.6) / 0.4, 0, 1);
-  const ghostIn = clamp((t - 5.0) / 0.6, 0, 1);
+  const eyebrowIn = clamp((t - 0.3) / 0.5, 0, 1);
+  const openerIn = clamp((t - 0.9) / 0.7, 0, 1);
+  const l1In = clamp((t - 1.9) / 0.6, 0, 1);
+  const strikeT = clamp((t - 3.0) / 0.4, 0, 1);
+  const l2In = clamp((t - 3.6) / 0.6, 0, 1);
+  const l3In = clamp((t - 5.0) / 0.6, 0, 1);
+  const ghostIn = clamp((t - 5.3) / 0.6, 0, 1);
 
   const bob = Math.sin(t * 2) * 6;
 
@@ -53,12 +55,29 @@ export const Scene4Insight = () => {
             fontWeight: 700,
             color: "#84A3FF",
             textTransform: "uppercase",
-            marginBottom: 48,
-            opacity: l1In,
-            transform: `translateY(${(1 - l1In) * 12}px)`,
+            marginBottom: 32,
+            opacity: eyebrowIn,
+            transform: `translateY(${(1 - eyebrowIn) * 12}px)`,
           }}
         >
           ─ Insight ─
+        </div>
+
+        {/* Emotional opener */}
+        <div
+          style={{
+            fontSize: 44,
+            fontStyle: "italic",
+            fontWeight: 500,
+            lineHeight: 1.35,
+            color: "#C7CBDB",
+            letterSpacing: "-0.01em",
+            marginBottom: 44,
+            opacity: openerIn,
+            transform: `translateY(${(1 - openerIn) * 12}px)`,
+          }}
+        >
+          "우리가 잃은 건 시간만이 아니다."
         </div>
 
         <div
