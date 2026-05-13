@@ -51,7 +51,7 @@ export const Scene3Walls = () => {
             marginBottom: 14,
           }}
         >
-          The two walls
+          응답 분석 (51명 대상)
         </div>
         <div
           style={{
@@ -61,7 +61,7 @@ export const Scene3Walls = () => {
             letterSpacing: "-0.025em",
           }}
         >
-          무엇이 우리를 멈추게 했나?
+          사이드 프로젝트는 두 벽에서 무너진다.
         </div>
       </div>
 
@@ -153,7 +153,7 @@ export const Scene3Walls = () => {
             paddingLeft: 28,
           }}
         >
-          "초기에는 빠르게 시작되지만, 시간이 갈수록 동기가 사라지면 자연스럽게 멈추게 된다."
+          "초기엔 빠르게 시작되지만, 동기가 흔들리고 일정이 어긋나면 자연스럽게 멈추게 된다."
         </div>
       </div>
     </AbsoluteFill>

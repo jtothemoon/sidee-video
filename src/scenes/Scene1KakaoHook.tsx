@@ -23,7 +23,7 @@ const MESSAGES: ChatMessage[] = [
     sender: "기획자",
     avatar: "기",
     avatarColor: "#FFB347",
-    message: "나는 솔로 본방 봐야해서 그만 둘께요",
+    message: "나는솔로 본방 봐야해서 그만 둘께요",
     msgStart: 0.6,
     leaveStart: 1.3,
   },

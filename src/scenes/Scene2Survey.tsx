@@ -49,7 +49,7 @@ export const Scene2Survey = () => {
             marginBottom: 14,
           }}
         >
-          Survey · n=51
+          사이드 프로젝트 경험자 대상 설문
         </div>
         <div
           style={{

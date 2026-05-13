@@ -14,25 +14,34 @@ const seededIntensity = (i: number) => {
   return x - Math.floor(x);
 };
 
+// design-system 도메인 — TIER S1/S2, 완수율, 피어리뷰, 리더 경험
 const PORTFOLIO_LINES = [
   "Carl · 풀스택 개발자",
   "─────────────────",
-  "PROJECTS  3건 완주",
+  "PROJECTS    3건 완주",
   "  · Sidee (Lead BE, 14주)",
   "  · 구독 플랫폼 (FE, 4주)",
   "  · 클래스 매칭 (BE)",
   "",
-  "TIER       💎 Diamond",
-  "REVIEW     4.8 / 5.0",
-  "COMMITS    412",
-  "COVERAGE   83 %",
+  "TIER         S1 · 상위 4%",
+  "완수율        92 %",
+  "피어리뷰     4.8 / 5.0",
+  "리더 경험      2회",
 ];
 
+// 좌측 카드 — 14주의 raw 작업 활동
 const STATS = [
   { label: "커밋",  value: "412" },
   { label: "PR",   value: "68" },
   { label: "리뷰",  value: "51" },
   { label: "이슈",  value: "93" },
+];
+
+// Hero 카드 스타일 score 모듈 — 우측 portfolio 카드 상단에 박힘
+const HERO_STATS = [
+  { label: "완주",     value: "5" },
+  { label: "진행 중",  value: "2" },
+  { label: "피어리뷰", value: "1.0K" },
 ];
 
 export const Scene7AIPortfolio = () => {
@@ -42,9 +51,13 @@ export const Scene7AIPortfolio = () => {
   const dashIn = clamp((t - 0.5) / 0.5, 0, 1);
   const arrowIn = clamp((t - 1.8) / 0.5, 0, 1);
   const portIn = clamp((t - 2.4) / 0.6, 0, 1);
+  const scoreIn = clamp((t - 2.7) / 0.5, 0, 1);
   const chipIn = clamp((t - 4.5) / 0.5, 0, 1);
 
-  const linesShown = Math.floor((t - 3.0) / 0.18);
+  // Hero 카드 92% count-up
+  const completionRate = Math.round(scoreIn * 92);
+
+  const linesShown = Math.floor((t - 3.4) / 0.18);
 
   return (
     <AbsoluteFill
@@ -76,7 +89,7 @@ export const Scene7AIPortfolio = () => {
             marginBottom: 14,
           }}
         >
-          How Sidee works · 03
+          Sidee의 작동 방식
         </div>
         <div
           style={{
@@ -190,12 +203,12 @@ export const Scene7AIPortfolio = () => {
         </div>
       </div>
 
-      {/* Arrow between */}
+      {/* Arrow between — centered between cards */}
       <div
         style={{
           position: "absolute",
-          top: 540,
-          left: 760,
+          top: 560,
+          left: 920,
           opacity: arrowIn,
           transform: `scale(${arrowIn})`,
         }}
@@ -220,13 +233,14 @@ export const Scene7AIPortfolio = () => {
           top: 320,
           right: 100,
           width: 620,
-          background: COLORS.NAVY,
+          background: COLORS.WHITE,
+          border: "1.5px solid #E1E4ED",
           borderRadius: 22,
           padding: 28,
-          boxShadow: "0 16px 32px rgba(29,41,85,0.16)",
+          boxShadow: "0 2px 4px rgba(29,41,85,0.06)",
           opacity: portIn,
           transform: `translateY(${(1 - portIn) * 14}px)`,
-          color: COLORS.WHITE,
+          color: COLORS.NAVY,
         }}
       >
         <div
@@ -240,7 +254,7 @@ export const Scene7AIPortfolio = () => {
           <div
             style={{
               fontSize: 14,
-              color: "#84A3FF",
+              color: COLORS.BLUE,
               fontWeight: 700,
               letterSpacing: "0.08em",
             }}
@@ -262,12 +276,128 @@ export const Scene7AIPortfolio = () => {
           </div>
         </div>
 
+        {/* Hero-style score 모듈 — TIER + 완주율 + stats */}
         <div
           style={{
+            background: `linear-gradient(180deg, ${COLORS.SKY} 0%, ${COLORS.WHITE} 100%)`,
+            border: `1px solid ${COLORS.NAVY_100}`,
+            borderRadius: 16,
+            padding: "18px 20px",
+            marginBottom: 18,
+            opacity: scoreIn,
+            transform: `translateY(${(1 - scoreIn) * 10}px)`,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: COLORS.NAVY_500,
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                }}
+              >
+                나의 프로젝트 완주율
+              </div>
+              <div
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontSize: 64,
+                  fontWeight: 800,
+                  color: COLORS.BLUE,
+                  letterSpacing: "-0.04em",
+                  lineHeight: 1,
+                  marginTop: 6,
+                  fontVariantNumeric: "tabular-nums",
+                }}
+              >
+                {completionRate}
+                <span style={{ fontSize: 28, fontWeight: 700, color: COLORS.NAVY }}>%</span>
+              </div>
+              <div
+                style={{
+                  fontSize: 12,
+                  color: COLORS.NAVY_500,
+                  fontWeight: 600,
+                  marginTop: 6,
+                }}
+              >
+                최근 14주 · 상위 4%
+              </div>
+            </div>
+            <div
+              style={{
+                background: COLORS.NAVY,
+                color: COLORS.WHITE,
+                padding: "6px 12px",
+                borderRadius: 8,
+                fontSize: 14,
+                fontWeight: 800,
+                fontFamily: FONT_DISPLAY,
+                letterSpacing: "-0.01em",
+                boxShadow: "0 2px 8px rgba(29,41,85,0.20)",
+              }}
+            >
+              S1
+            </div>
+          </div>
+
+          {/* stat row */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              marginTop: 14,
+              paddingTop: 12,
+              borderTop: `1px solid ${COLORS.NAVY_100}`,
+              gap: 8,
+            }}
+          >
+            {HERO_STATS.map((s) => (
+              <div key={s.label}>
+                <div
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 700,
+                    color: COLORS.NAVY,
+                    letterSpacing: "-0.012em",
+                  }}
+                >
+                  {s.value}
+                </div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: COLORS.NAVY_300,
+                    fontWeight: 600,
+                    marginTop: 4,
+                  }}
+                >
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* monospace résumé — light bg version */}
+        <div
+          style={{
+            background: COLORS.NAVY_50,
+            borderRadius: 12,
+            padding: "14px 18px",
             fontFamily: FONT_MONO,
-            fontSize: 17,
+            fontSize: 15,
             lineHeight: 1.55,
-            color: COLORS.WHITE,
+            color: COLORS.NAVY,
           }}
         >
           {PORTFOLIO_LINES.map((line, i) => {
@@ -278,7 +408,8 @@ export const Scene7AIPortfolio = () => {
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: `translateX(${visible ? 0 : -4}px)`,
-                  color: line.startsWith("TIER") ? "#84A3FF" : COLORS.WHITE,
+                  color: line.startsWith("TIER") ? COLORS.BLUE : COLORS.NAVY,
+                  fontWeight: line.startsWith("TIER") ? 700 : 500,
                 }}
               >
                 {line || " "}

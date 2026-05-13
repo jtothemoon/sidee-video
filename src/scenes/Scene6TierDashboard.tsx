@@ -1,4 +1,4 @@
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import {
   COLORS,
   FONT_BODY,
@@ -7,12 +7,13 @@ import {
   useLocalTime,
 } from "./_shared";
 
+// Sidee 신뢰 등급제 — design-system의 TierBadge 색상 그대로
 const TIERS = [
-  { name: "Bronze",   color: "#B4744B", threshold: 1.3 },
-  { name: "Silver",   color: "#8A95A8", threshold: 1.5 },
-  { name: "Gold",     color: "#E0A82E", threshold: 1.7 },
-  { name: "Platinum", color: "#7E8FB0", threshold: 1.9 },
-  { name: "Diamond",  color: COLORS.BLUE, threshold: 2.1 },
+  { name: "C",  desc: "시작",   color: "#AEB0B6",  threshold: 1.3 },
+  { name: "B",  desc: "입문",   color: "#8AA4FF",  threshold: 1.5 },
+  { name: "A",  desc: "성장",   color: "#5278FF",  threshold: 1.7 },
+  { name: "S2", desc: "검증",   color: COLORS.BLUE, threshold: 1.9 },
+  { name: "S1", desc: "최상위", color: COLORS.NAVY, threshold: 2.1 },
 ];
 
 const AVATARS = [
@@ -22,14 +23,21 @@ const AVATARS = [
   { ini: "SH", color: "#E0A82E" },
 ];
 
-type TodoStatus = "wait" | "progress" | "done";
+// design-system ProjectDetail.jsx의 TODO 대시보드 미리보기 그대로
+type TodoStatus = "완료" | "진행" | "대기";
 
-const TODOS: { txt: string; status: TodoStatus; start: number }[] = [
-  { txt: "로그인 API",     status: "done",     start: 3.0 },
-  { txt: "온보딩 화면",     status: "progress", start: 3.3 },
-  { txt: "대시보드 라우팅", status: "progress", start: 3.6 },
-  { txt: "결제 흐름 설계",  status: "wait",     start: 3.9 },
-  { txt: "리서치 정리",     status: "wait",     start: 4.2 },
+const STATUS_STYLE: Record<TodoStatus, { bg: string; color: string }> = {
+  완료: { bg: "#F2FFF6", color: "#006E25" },
+  진행: { bg: "#EBF0FF", color: COLORS.NAVY },
+  대기: { bg: "#F4F4F5", color: "rgba(55,56,60,0.61)" },
+};
+
+const TODOS: { status: TodoStatus; title: string; who: string; start: number }[] = [
+  { status: "완료", title: "PRD 초안 작성",        who: "예랑", start: 3.0 },
+  { status: "완료", title: "디자인 시스템 토큰",   who: "eura",   start: 3.3 },
+  { status: "진행", title: "로그인 API 연결",      who: "현진",   start: 3.6 },
+  { status: "진행", title: "프로필 카드 인터랙션", who: "Carl",   start: 3.9 },
+  { status: "대기", title: "마케팅 준비",       who: "태정",      start: 4.2 },
 ];
 
 export const Scene6TierDashboard = () => {
@@ -69,7 +77,7 @@ export const Scene6TierDashboard = () => {
             marginBottom: 14,
           }}
         >
-          How Sidee works · 01 + 02
+          Sidee의 작동 방식
         </div>
         <div
           style={{
@@ -131,9 +139,22 @@ export const Scene6TierDashboard = () => {
               fontSize: 14,
               color: COLORS.BLUE,
               fontWeight: 700,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
             }}
           >
-            GitHub · Figma 연동
+            <Img
+              src={staticFile("icons/GitHub.svg")}
+              style={{ width: 18, height: 18, display: "block" }}
+            />
+            <span>GitHub</span>
+            <span style={{ color: COLORS.NAVY_300, margin: "0 2px" }}>·</span>
+            <Img
+              src={staticFile("icons/Figma.svg")}
+              style={{ width: 18, height: 18, display: "block" }}
+            />
+            <span>Figma 연동</span>
           </div>
         </div>
 
@@ -173,21 +194,22 @@ export const Scene6TierDashboard = () => {
                     justifyContent: "center",
                     color: COLORS.WHITE,
                     fontWeight: 800,
-                    fontSize: 22,
+                    fontSize: 26,
                     fontFamily: FONT_DISPLAY,
+                    letterSpacing: "-0.02em",
                     boxShadow: filled ? `0 6px 16px ${tier.color}50` : "none",
                   }}
                 >
-                  T{i + 1}
+                  {tier.name}
                 </div>
                 <div
                   style={{
-                    fontSize: 15,
-                    fontWeight: 700,
-                    color: filled ? COLORS.NAVY : COLORS.NAVY_300,
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: filled ? COLORS.NAVY_500 : COLORS.NAVY_300,
                   }}
                 >
-                  {tier.name}
+                  {tier.desc}
                 </div>
               </div>
             );
@@ -339,68 +361,100 @@ export const Scene6TierDashboard = () => {
           </div>
         </div>
 
-        {/* Kanban */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: 10,
-          }}
-        >
-          {(["대기", "진행", "완료"] as const).map((col, ci) => {
-            const statusOfCol: TodoStatus =
-              ci === 0 ? "wait" : ci === 1 ? "progress" : "done";
-            const borderColor =
-              ci === 2 ? "#16A34A" : ci === 1 ? COLORS.BLUE : COLORS.NAVY_300;
-            return (
-              <div
-                key={ci}
-                style={{
-                  background: COLORS.NAVY_50,
-                  borderRadius: 12,
-                  padding: 12,
-                  minHeight: 180,
-                }}
-              >
+        {/* TODO 대시보드 미리보기 — rows */}
+        <div style={{ marginTop: 4 }}>
+          <div
+            style={{
+              fontSize: 13,
+              color: COLORS.NAVY_500,
+              fontWeight: 700,
+              letterSpacing: "0.06em",
+              marginBottom: 10,
+            }}
+          >
+            TODO 대시보드 미리보기
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            {TODOS.map((td, i) => {
+              const fadeIn = clamp((t - td.start) / 0.3, 0, 1);
+              const s = STATUS_STYLE[td.status];
+              return (
                 <div
+                  key={i}
                   style={{
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: COLORS.NAVY_500,
-                    letterSpacing: "0.06em",
-                    marginBottom: 8,
+                    display: "grid",
+                    gridTemplateColumns: "56px 1fr auto",
+                    alignItems: "center",
+                    gap: 12,
+                    padding: "10px 14px",
+                    background: "#FCFCFD",
+                    borderRadius: 10,
+                    opacity: fadeIn,
+                    transform: `translateY(${(1 - fadeIn) * 8}px)`,
                   }}
                 >
-                  {col.toUpperCase()}
+                  <span
+                    style={{
+                      background: s.bg,
+                      color: s.color,
+                      padding: "3px 0",
+                      borderRadius: 6,
+                      fontSize: 12,
+                      fontWeight: 700,
+                      textAlign: "center",
+                    }}
+                  >
+                    {td.status}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 15,
+                      color: "rgba(46,47,51,0.88)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {td.title}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      color: "rgba(55,56,60,0.61)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {td.who}
+                  </span>
                 </div>
-                {TODOS.filter((td) => td.status === statusOfCol).map(
-                  (td, ti) => {
-                    const fadeIn = clamp((t - td.start) / 0.3, 0, 1);
-                    return (
-                      <div
-                        key={ti}
-                        style={{
-                          background: COLORS.WHITE,
-                          padding: "10px 12px",
-                          borderRadius: 10,
-                          marginBottom: 6,
-                          fontSize: 13,
-                          color: COLORS.NAVY,
-                          fontWeight: 600,
-                          boxShadow: "0 1px 2px rgba(29,41,85,0.06)",
-                          opacity: fadeIn,
-                          transform: `translateY(${(1 - fadeIn) * 8}px)`,
-                          borderLeft: `3px solid ${borderColor}`,
-                        }}
-                      >
-                        {td.txt}
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* Footer — GitHub/Figma 연동 */}
+          <div
+            style={{
+              marginTop: 14,
+              paddingTop: 12,
+              borderTop: `1px solid ${COLORS.NAVY_100}`,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              fontSize: 13,
+              color: "rgba(55,56,60,0.61)",
+              fontWeight: 500,
+            }}
+          >
+            <Img
+              src={staticFile("icons/GitHub.svg")}
+              style={{ width: 16, height: 16, display: "block" }}
+            />
+            <Img
+              src={staticFile("icons/Figma.svg")}
+              style={{ width: 16, height: 16, display: "block" }}
+            />
+            <span style={{ marginLeft: 4 }}>
+              API 연동으로 작업 활동이 자동 반영돼요
+            </span>
+          </div>
         </div>
       </div>
     </AbsoluteFill>
