@@ -1,4 +1,4 @@
-import { AbsoluteFill, Sequence } from "remotion";
+import { AbsoluteFill, Html5Audio, interpolate, Sequence, staticFile } from "remotion";
 import { Scene1KakaoHook } from "./scenes/Scene1KakaoHook";
 import { Scene2Survey } from "./scenes/Scene2Survey";
 import { Scene3Walls } from "./scenes/Scene3Walls";
@@ -11,6 +11,19 @@ import { Scene8Outro } from "./scenes/Scene8Outro";
 export const MyComposition: React.FC = () => {
   return (
     <AbsoluteFill>
+      {/* BGM — quiet 0~28s (무거운 진단) → ramp up 28~32s (Sidee 등장) → full 32~58.5s → fade out */}
+      <Html5Audio
+        src={staticFile("audio/bgm.mp3")}
+        trimBefore={180}
+        volume={(f) =>
+          interpolate(
+            f,
+            [0, 15, 840, 960, 1755, 1800],
+            [0, 0.18, 0.18, 0.4, 0.4, 0],
+            { extrapolateRight: "clamp" }
+          )
+        }
+      />
       <Sequence durationInFrames={240}>
         <Scene1KakaoHook />
       </Sequence>
