@@ -1,4 +1,4 @@
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import { AbsoluteFill } from "remotion";
 import { COLORS, FONT_BODY, clamp, useLocalTime } from "./_shared";
 
 export const Scene4Insight = () => {
@@ -10,9 +10,6 @@ export const Scene4Insight = () => {
   const strikeT = clamp((t - 3.0) / 0.4, 0, 1);
   const l2In = clamp((t - 3.6) / 0.6, 0, 1);
   const l3In = clamp((t - 5.0) / 0.6, 0, 1);
-  const ghostIn = clamp((t - 5.3) / 0.6, 0, 1);
-
-  const bob = Math.sin(t * 2) * 6;
 
   return (
     <AbsoluteFill
@@ -50,18 +47,15 @@ export const Scene4Insight = () => {
       >
         <div
           style={{
-            fontSize: 24,
-            letterSpacing: "0.22em",
-            fontWeight: 700,
-            color: "#84A3FF",
-            textTransform: "uppercase",
+            width: 80,
+            height: 2,
+            background: "#84A3FF",
+            borderRadius: 2,
             marginBottom: 32,
             opacity: eyebrowIn,
             transform: `translateY(${(1 - eyebrowIn) * 12}px)`,
           }}
-        >
-          ─ Insight ─
-        </div>
+        />
 
         {/* Emotional opener */}
         <div
@@ -136,24 +130,8 @@ export const Scene4Insight = () => {
             transform: `translateY(${(1 - l3In) * 10}px)`,
           }}
         >
-          보수도 의무도 없는 자리에서, 도전자들은 같은 벽에 부딪혀 같은 자리로 돌아옵니다.
+          혼자의 의지만으로는, 끝까지 갈 수 없습니다.
         </div>
-      </div>
-
-      {/* Floating ghost mascot in corner */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 60,
-          right: 80,
-          opacity: ghostIn * 0.9,
-          transform: `translateY(${bob}px) scale(${0.8 + ghostIn * 0.2})`,
-        }}
-      >
-        <Img
-          src={staticFile("sidee/sidee-mark.svg")}
-          style={{ width: 180, height: 180 * (270 / 262) }}
-        />
       </div>
     </AbsoluteFill>
   );
