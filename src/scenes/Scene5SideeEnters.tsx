@@ -88,7 +88,7 @@ export const Scene5SideeEnters = () => {
             marginBottom: 18,
           }}
         >
-          A new kind of side project
+          사이드 프로젝트의 혁신
         </div>
         <div
           style={{
@@ -135,12 +135,14 @@ export const Scene5SideeEnters = () => {
             >
               <div
                 style={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: "50%",
-                  background: COLORS.BLUE,
+                  fontSize: 24,
+                  fontWeight: 800,
+                  color: COLORS.BLUE,
+                  letterSpacing: "-0.02em",
                 }}
-              />
+              >
+                #
+              </div>
               <div
                 style={{
                   fontSize: 24,
