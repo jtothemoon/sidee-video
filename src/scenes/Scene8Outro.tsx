@@ -47,7 +47,8 @@ export const Scene8Outro = () => {
   const shiftY = eased * SHIFT_Y_END;
   const bob = Math.sin(t * 2.2) * 8;
   const tag2In = clamp((t - 3.0) / 0.6, 0, 1);
-  const ctaIn = clamp((t - 4.6) / 0.6, 0, 1);
+  const ctaIn = clamp((t - 4.2) / 0.6, 0, 1);
+  const fadeOut = clamp((t - 6.0) / 1.0, 0, 1);
 
   return (
     <AbsoluteFill
@@ -270,6 +271,17 @@ export const Scene8Outro = () => {
           </div>
         </div>
       </div>
+
+      {/* Fade-to-white overlay — 마지막 1.0s에 빛에 잠기며 마무리 */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: COLORS.WHITE,
+          opacity: fadeOut * 0.6,
+          pointerEvents: "none",
+        }}
+      />
     </AbsoluteFill>
   );
 };

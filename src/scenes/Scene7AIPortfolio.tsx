@@ -57,7 +57,7 @@ export const Scene7AIPortfolio = () => {
   // Hero 카드 92% count-up
   const completionRate = Math.round(scoreIn * 92);
 
-  const linesShown = Math.floor((t - 3.4) / 0.18);
+  const linesShown = Math.floor((t - 3.4) / 0.25);
 
   return (
     <AbsoluteFill
@@ -145,7 +145,7 @@ export const Scene7AIPortfolio = () => {
           {Array.from({ length: 14 * 7 }).map((_, i) => {
             const col = i % 14;
             // 컬럼(주)별로 순차 reveal — 14주가 0.6초씩 켜짐
-            const revealAt = 0.7 + col * 0.06;
+            const revealAt = 0.7 + col * 0.10;
             const reveal = clamp((t - revealAt) / 0.3, 0, 1);
 
             // 셀별 페이즈를 다르게 줘서 살아있는 느낌

@@ -10,10 +10,10 @@ import {
 // Sidee 신뢰 등급제 — design-system의 TierBadge 색상 그대로
 const TIERS = [
   { name: "C",  desc: "시작",   color: "#AEB0B6",  threshold: 1.3 },
-  { name: "B",  desc: "입문",   color: "#8AA4FF",  threshold: 1.5 },
-  { name: "A",  desc: "성장",   color: "#5278FF",  threshold: 1.7 },
-  { name: "S2", desc: "검증",   color: COLORS.BLUE, threshold: 1.9 },
-  { name: "S1", desc: "최상위", color: COLORS.NAVY, threshold: 2.1 },
+  { name: "B",  desc: "입문",   color: "#8AA4FF",  threshold: 1.55 },
+  { name: "A",  desc: "성장",   color: "#5278FF",  threshold: 1.8 },
+  { name: "S2", desc: "검증",   color: COLORS.BLUE, threshold: 2.05 },
+  { name: "S1", desc: "최상위", color: COLORS.NAVY, threshold: 2.3 },
 ];
 
 const AVATARS = [
@@ -34,10 +34,10 @@ const STATUS_STYLE: Record<TodoStatus, { bg: string; color: string }> = {
 
 const TODOS: { status: TodoStatus; title: string; who: string; start: number }[] = [
   { status: "완료", title: "PRD 초안 작성",        who: "예랑", start: 3.0 },
-  { status: "완료", title: "디자인 시스템 토큰",   who: "eura",   start: 3.3 },
-  { status: "진행", title: "로그인 API 연결",      who: "현진",   start: 3.6 },
-  { status: "진행", title: "프로필 카드 인터랙션", who: "Carl",   start: 3.9 },
-  { status: "대기", title: "마케팅 준비",       who: "태정",      start: 4.2 },
+  { status: "완료", title: "디자인 시스템 토큰",   who: "eura",   start: 3.4 },
+  { status: "진행", title: "로그인 API 연결",      who: "현진",   start: 3.8 },
+  { status: "진행", title: "프로필 카드 인터랙션", who: "Carl",   start: 4.2 },
+  { status: "대기", title: "마케팅 준비",       who: "태정",      start: 4.6 },
 ];
 
 export const Scene6TierDashboard = () => {

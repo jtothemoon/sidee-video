@@ -19,7 +19,7 @@ const WORDMARK_H = WORDMARK_W * (388 / 1129); // ≈ 309
 export const Scene5SideeEnters = () => {
   const t = useLocalTime();
 
-  const logoIn = ease.easeOutBack(clamp(t / 1.0, 0, 1));
+  const logoIn = ease.easeOutBack(clamp(t / 0.7, 0, 1));
   const logoMove = clamp((t - 1.6) / 0.8, 0, 1);
   const tagIn = clamp((t - 2.4) / 0.6, 0, 1);
 
@@ -36,13 +36,13 @@ export const Scene5SideeEnters = () => {
       }}
     >
       {/* Soft floating ghosts in bg */}
-      <div style={{ position: "absolute", top: 80, right: 120, opacity: 0.15 }}>
+      <div style={{ position: "absolute", top: 80, right: 120, opacity: 0.22 }}>
         <Img
           src={staticFile("sidee/sidee-mark.svg")}
           style={{ width: 140, height: 140 * (270 / 262) }}
         />
       </div>
-      <div style={{ position: "absolute", bottom: 140, left: 80, opacity: 0.1 }}>
+      <div style={{ position: "absolute", bottom: 140, left: 80, opacity: 0.16 }}>
         <Img
           src={staticFile("sidee/sidee-mark.svg")}
           style={{ width: 100, height: 100 * (270 / 262) }}
@@ -117,7 +117,7 @@ export const Scene5SideeEnters = () => {
         }}
       >
         {PROMISES.map((p, i) => {
-          const inT = clamp((t - (3.6 + i * 0.3)) / 0.5, 0, 1);
+          const inT = clamp((t - (3.6 + i * 0.4)) / 0.5, 0, 1);
           return (
             <div
               key={i}
