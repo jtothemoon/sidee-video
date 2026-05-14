@@ -142,7 +142,8 @@ const StatCallouts: React.FC<{ t: number }> = ({ t }) => {
           left: 100,
           bottom: 110,
           opacity: stopIn,
-          transform: `translateY(${(1 - stopIn) * 14}px)`,
+          transform: `translateY(${(1 - stopIn) * 14}px) scale(${0.95 + stopIn * 0.05})`,
+          transformOrigin: "left bottom",
         }}
       >
         <div
@@ -175,7 +176,8 @@ const StatCallouts: React.FC<{ t: number }> = ({ t }) => {
           bottom: 110,
           textAlign: "right",
           opacity: launchIn,
-          transform: `translateY(${(1 - launchIn) * 14}px)`,
+          transform: `translateY(${(1 - launchIn) * 14}px) scale(${0.88 + launchIn * 0.12})`,
+          transformOrigin: "right bottom",
         }}
       >
         <div

@@ -231,7 +231,7 @@ export const Scene1KakaoHook = () => {
         style={{
           position: "absolute",
           inset: 0,
-          background: `rgba(10, 16, 41, ${dimT * 0.78})`,
+          background: `rgba(10, 16, 41, ${dimT * 0.85})`,
           opacity: dimT,
           pointerEvents: "none",
         }}
@@ -248,7 +248,7 @@ export const Scene1KakaoHook = () => {
           textAlign: "center",
           color: COLORS.WHITE,
           opacity: punchIn,
-          transform: `translateY(${(1 - punchIn) * 30}px)`,
+          transform: `translateY(${(1 - punchIn) * 30}px) scale(${0.92 + punchIn * 0.08})`,
           pointerEvents: "none",
         }}
       >

@@ -1,4 +1,4 @@
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, interpolateColors } from "remotion";
 import {
   COLORS,
   FONT_BODY,
@@ -8,19 +8,31 @@ import {
   useLocalTime,
 } from "./_shared";
 
+// Alert colors — problem 데이터는 warm tone으로 Sidee BLUE와 의미 구분
+const ALERT_PRIMARY = "#E5734D"; // coral, 49%
+const ALERT_SECONDARY = "#F2A270"; // warm orange, 37%
+
 export const Scene3Walls = () => {
   const t = useLocalTime();
   const headerIn = clamp((t - 0.1) / 0.5, 0, 1);
   const quoteIn = clamp((t - 4.0) / 0.6, 0, 1);
+  const settleT = clamp((t - 4.8) / 0.6, 0, 1);
 
   const barT = (start: number) =>
     ease.easeOutCubic(clamp((t - start) / 1.2, 0, 1));
 
   const bars = [
-    { label: "동기부여 상실",      value: 49, t: barT(1.0), color: COLORS.BLUE },
-    { label: "일정 조율 실패",      value: 37, t: barT(1.4), color: "#5B85FF" },
+    { label: "동기부여 상실",      value: 49, t: barT(1.0), color: ALERT_PRIMARY },
+    { label: "일정 조율 실패",      value: 37, t: barT(1.4), color: ALERT_SECONDARY },
     { label: "기타 (기획·이탈)",    value: 14, t: barT(1.8), color: COLORS.NAVY_300 },
   ];
+
+  const quoteColor = interpolateColors(
+    settleT,
+    [0, 1],
+    [COLORS.NAVY_500, COLORS.NAVY]
+  );
+  const quoteBorderWidth = 6 + settleT * 2;
 
   return (
     <AbsoluteFill
@@ -146,10 +158,10 @@ export const Scene3Walls = () => {
           style={{
             fontSize: 40,
             fontStyle: "italic",
-            color: COLORS.NAVY_500,
+            color: quoteColor,
             lineHeight: 1.45,
             fontWeight: 500,
-            borderLeft: `6px solid ${COLORS.BLUE}`,
+            borderLeft: `${quoteBorderWidth}px solid ${COLORS.BLUE}`,
             paddingLeft: 28,
           }}
         >
