@@ -24,6 +24,32 @@ export const MyComposition: React.FC = () => {
           )
         }
       />
+      {/* SFX — 카톡 ding ×3 (메시지 등장 시점) */}
+      <Sequence from={16} durationInFrames={30}>
+        <Html5Audio src={staticFile("audio/sfx/kakao-ding.mp3")} volume={0.7} />
+      </Sequence>
+      <Sequence from={58} durationInFrames={30}>
+        <Html5Audio src={staticFile("audio/sfx/kakao-ding.mp3")} volume={0.7} />
+      </Sequence>
+      <Sequence from={100} durationInFrames={30}>
+        <Html5Audio src={staticFile("audio/sfx/kakao-ding.mp3")} volume={0.7} />
+      </Sequence>
+
+      {/* SFX — 98% impact (dim overlay + mega 320px 등장) */}
+      <Sequence from={165} durationInFrames={60}>
+        <Html5Audio src={staticFile("audio/sfx/impact-98.mp3")} volume={0.8} />
+      </Sequence>
+
+      {/* SFX — Sidee riser (0:28 build → 0:30 peak, 워드마크 등장과 동기) */}
+      <Sequence from={780} durationInFrames={120}>
+        <Html5Audio src={staticFile("audio/sfx/sidee-riser.mp3")} volume={0.9} />
+      </Sequence>
+
+      {/* SFX — Ghost float-up whoosh (Scene 8 ghost가 워드마크에서 위로 떠오를 때) */}
+      <Sequence from={1605} durationInFrames={60}>
+        <Html5Audio src={staticFile("audio/sfx/ghost-lift.mp3")} volume={0.7} />
+      </Sequence>
+
       <Sequence durationInFrames={240}>
         <Scene1KakaoHook />
       </Sequence>
