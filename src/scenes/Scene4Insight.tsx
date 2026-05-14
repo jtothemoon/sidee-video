@@ -7,9 +7,14 @@ export const Scene4Insight = () => {
   const eyebrowIn = clamp((t - 0.3) / 0.5, 0, 1);
   const openerIn = clamp((t - 0.9) / 0.7, 0, 1);
   const l1In = clamp((t - 1.9) / 0.6, 0, 1);
-  const strikeT = clamp((t - 3.0) / 0.4, 0, 1);
+  const strikeT = clamp((t - 3.0) / 0.25, 0, 1);
   const l2In = clamp((t - 3.6) / 0.6, 0, 1);
-  const l3In = clamp((t - 5.0) / 0.6, 0, 1);
+  const l3In = clamp((t - 4.6) / 0.6, 0, 1);
+
+  // "관계의 구조" BLUE glow pulse — l2 settle 후 한 번 빛났다가 fade
+  const glowRise = clamp((t - 4.2) / 0.4, 0, 1);
+  const glowFade = clamp((t - 5.0) / 0.7, 0, 1);
+  const glowStrength = glowRise * (1 - glowFade) * 32;
 
   return (
     <AbsoluteFill
@@ -112,10 +117,18 @@ export const Scene4Insight = () => {
             letterSpacing: "-0.03em",
             marginTop: 28,
             opacity: l2In,
-            transform: `translateY(${(1 - l2In) * 14}px)`,
+            transform: `translateY(${(1 - l2In) * 14}px) scale(${0.92 + l2In * 0.08})`,
           }}
         >
-          <span style={{ color: "#84A3FF" }}>관계의 구조</span>에 있었다.
+          <span
+            style={{
+              color: "#84A3FF",
+              textShadow: `0 0 ${glowStrength}px rgba(132, 163, 255, 0.65)`,
+            }}
+          >
+            관계의 구조
+          </span>
+          에 있었다.
         </div>
 
         <div

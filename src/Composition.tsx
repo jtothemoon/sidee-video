@@ -1,4 +1,4 @@
-import { AbsoluteFill, Html5Audio, interpolate, Sequence, staticFile } from "remotion";
+import { AbsoluteFill, Html5Audio, interpolate, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { Scene1KakaoHook } from "./scenes/Scene1KakaoHook";
 import { Scene2Survey } from "./scenes/Scene2Survey";
 import { Scene3Walls } from "./scenes/Scene3Walls";
@@ -7,6 +7,27 @@ import { Scene5SideeEnters } from "./scenes/Scene5SideeEnters";
 import { Scene6TierDashboard } from "./scenes/Scene6TierDashboard";
 import { Scene7AIPortfolio } from "./scenes/Scene7AIPortfolio";
 import { Scene8Outro } from "./scenes/Scene8Outro";
+
+// Scene 4 → Scene 5 pivot — 어둠에서 해방으로 가는 emotional pivot을 white flash로 강조
+const PivotFlash: React.FC = () => {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(
+    frame,
+    [870, 893, 900, 925],
+    [0, 0.95, 0.95, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+  );
+  if (opacity <= 0) return null;
+  return (
+    <AbsoluteFill
+      style={{
+        background: "#FFFFFF",
+        opacity,
+        pointerEvents: "none",
+      }}
+    />
+  );
+};
 
 export const MyComposition: React.FC = () => {
   return (
@@ -74,6 +95,9 @@ export const MyComposition: React.FC = () => {
       <Sequence from={1590} durationInFrames={210}>
         <Scene8Outro />
       </Sequence>
+
+      {/* Pivot flash overlay — 모든 씬 위에 떠서 Scene 4→5 transition */}
+      <PivotFlash />
     </AbsoluteFill>
   );
 };
